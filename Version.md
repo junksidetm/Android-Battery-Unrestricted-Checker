@@ -400,3 +400,10 @@
   - **Credential & Identity Mapping:** Automated conditional Git identity (`.gitconfig-github`) utilizing `junksidetm <331540275+junksidetm@users.noreply.github.com>` for GitHub while maintaining `mrdarksidetm <ajukr99901@gmail.com>` for GitLab and Codeberg.
   - **Branch Synchronization:** Pushed `main` branch and tags to `junksidetm/Android-Battery-Unrestricted-Checker`.
 - **Status:** 100% (GitHub repository created, multi-push remote active, and branches synchronized across all 3 platforms).
+
+## [2026-10-01 12:47:00 IST] - README Documentation GitHub Links Migration
+- **Action**: Updated README.md documentation links, badges, and author references to point to active GitHub account `junksidetm` while preserving GitLab and Codeberg mappings.
+- **Files Modified**:
+  - `README.md`
+  - `Version.md`
+- **Status**: 100% (Completed & Synced)
