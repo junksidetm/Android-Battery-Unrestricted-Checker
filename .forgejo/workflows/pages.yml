@@ -1,0 +1,19 @@
+name: Deploy Codeberg Pages
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Deploy to pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: pages
+          publish_dir: ./docs
+          github_token: ${{ secrets.CODEBERG_TOKEN || secrets.GITHUB_TOKEN }}

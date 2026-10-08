@@ -1,0 +1,18 @@
+name: Feature Request
+description: Suggest an idea or enhancement for Battery Mode Checker
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      placeholder: Describe the problem or limitation you encountered.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      placeholder: Describe the desired behavior or UI implementation.
+    validations:
+      required: true

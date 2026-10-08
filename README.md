@@ -5,6 +5,9 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker"><img src="https://img.shields.io/badge/GitHub-Main-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub Main" /></a>
+  <a href="https://codeberg.org/mrdarksidetm/Android-Battery-Unrestricted-Checker"><img src="https://img.shields.io/badge/Codeberg-Mirror-2185d0?style=flat-square&logo=codeberg&logoColor=white" alt="Codeberg Mirror" /></a>
+  <a href="https://gitlab.com/mrdarksidetm/Android-Battery-Unrestricted-Checker"><img src="https://img.shields.io/badge/GitLab-Mirror-fc6d26?style=flat-square&logo=gitlab&logoColor=white" alt="GitLab Mirror" /></a>
   <a href="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker/actions/workflows/build.yml"><img src="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker/actions/workflows/build.yml/badge.svg" alt="CI Status" /></a>
   <a href="https://m3.material.io/"><img src="https://img.shields.io/badge/Design-Material_3_Expressive-0061A4?style=flat-square" alt="Material 3 Expressive" /></a>
   <a href="https://developer.android.com/jetpack/compose"><img src="https://img.shields.io/badge/UI-Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" /></a>
@@ -93,6 +96,14 @@ In modern Android, battery optimization settings are buried deep within each ind
 Built with ❤️ by **Abhijeet Yadav** ([@junksidetm](https://github.com/junksidetm)).
 
 This application adheres to the **Single-Purpose Utility Philosophy**: it is engineered to do one specific job with uncompromising precision, maximum performance, and zero bloat. Because its scope is tightly bounded, it requires no perpetual updates or tracking.
+
+---
+
+## 🌐 Source Mirrors
+
+- **Main (GitHub)**: [github.com/junksidetm/Android-Battery-Unrestricted-Checker](https://github.com/junksidetm/Android-Battery-Unrestricted-Checker)
+- **Mirror (Codeberg)**: [codeberg.org/mrdarksidetm/Android-Battery-Unrestricted-Checker](https://codeberg.org/mrdarksidetm/Android-Battery-Unrestricted-Checker)
+- **Mirror (GitLab)**: [gitlab.com/mrdarksidetm/Android-Battery-Unrestricted-Checker](https://gitlab.com/mrdarksidetm/Android-Battery-Unrestricted-Checker)
 
 ---
 

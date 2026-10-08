@@ -1,0 +1,28 @@
+name: Bug Report
+description: File a bug report to help improve Battery Mode Checker
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting an issue!
+  - type: input
+    id: device
+    attributes:
+      label: Device & Android Version
+      placeholder: e.g. Google Pixel 8, Android 15
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      placeholder: Describe the problem clearly.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      placeholder: 1. Open app\n2. Tap on ...
+    validations:
+      required: true

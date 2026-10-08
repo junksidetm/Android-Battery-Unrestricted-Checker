@@ -1,0 +1,13 @@
+name: Feature Request
+about: Suggest an idea for Battery Mode Checker
+title: "[FEATURE] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Explain the proposed enhancement.
+    validations:
+      required: true
