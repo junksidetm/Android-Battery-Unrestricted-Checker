@@ -390,14 +390,14 @@
 - **Action:** Configured Codeberg repository mapping (`codeberg.org/mrdarksidetm/Android-Battery-Unrestricted-Checker`), verified SSH commit signing, and aligned build workflows.
 - **Changes:**
   - **Remote Architecture:** Added Codeberg remote `git@codeberg.org:mrdarksidetm/Android-Battery-Unrestricted-Checker.git`.
-  - **Cryptographic Signing:** Enforced ED25519 SSH commit verification with `ajukr99901@gmail.com`.
+  - **Cryptographic Signing:** Enforced ED25519 SSH commit verification.
 - **Status:** 100% (Configured and ready for sync).
 
 ## [2026-10-01 12:39:30 IST] - GitHub junksidetm Setup & Tri-Platform Multi-Push Remote
 - **Action**: Created new GitHub repository under `junksidetm/Android-Battery-Unrestricted-Checker` and configured simultaneous multi-push synchronization across GitHub, GitLab, and Codeberg.
 - **Changes**:
   - **Remote Architecture:** Configured `origin` remote to push concurrently to GitHub (`https://github.com/junksidetm/Android-Battery-Unrestricted-Checker.git`), GitLab (`git@gitlab.com:mrdarksidetm/Android-Battery-Unrestricted-Checker.git`), and Codeberg (`git@codeberg.org:mrdarksidetm/Android-Battery-Unrestricted-Checker.git`).
-  - **Credential & Identity Mapping:** Automated conditional Git identity (`.gitconfig-github`) utilizing `junksidetm <331540275+junksidetm@users.noreply.github.com>` for GitHub while maintaining `mrdarksidetm <ajukr99901@gmail.com>` for GitLab and Codeberg.
+  - **Credential & Identity Mapping:** Automated conditional Git identity (`.gitconfig-github`) utilizing `junksidetm` for GitHub while maintaining `mrdarksidetm` for GitLab and Codeberg.
   - **Branch Synchronization:** Pushed `main` branch and tags to `junksidetm/Android-Battery-Unrestricted-Checker`.
 - **Status:** 100% (GitHub repository created, multi-push remote active, and branches synchronized across all 3 platforms).
 
