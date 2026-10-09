@@ -416,3 +416,10 @@
   - **Codeberg (`.forgejo/`):** Added `.forgejo/workflows/pages.yml` deploying `docs/` to the `pages` branch for Codeberg Pages hosting, alongside Forgejo issue templates in `.forgejo/issue_template/`.
   - **Documentation & UI:** Integrated GitHub Main and Codeberg & GitLab Mirror badges and dedicated `## 🌐 Source Mirrors` section in `README.md`.
 - **Status:** 100% (Multi-platform configurations deployed and ready for synchronization).
+
+## [2026-10-09 19:18:00 IST] - GitHub Pages Automatic Enablement Hardening
+- **Action**: Hardened GitHub Pages deployment workflow by adding `enablement: true` to `actions/configure-pages@v5`, guaranteeing autonomous provisioning and eliminating HTTP 404 setup failures.
+- **Components Modified**:
+  - `.github/workflows/pages.yml`: Configured `enablement: true` on `Setup Pages` step.
+  - `Version.md`: Appended ledger entry.
+- **Status**: 100% (Completed & Synced)
