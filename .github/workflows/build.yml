@@ -146,6 +146,7 @@ jobs:
           git add error_log.txt
           git commit -m "ci: publish build log" || true
           git push -f origin ci-logs || true
+          git checkout -f "$GITHUB_SHA" || true
 
       - name: Verify Build Success
         run: |

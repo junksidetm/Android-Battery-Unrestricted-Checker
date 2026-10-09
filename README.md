@@ -26,7 +26,7 @@
 Download the pure production-signed `.apk` directly to your phone without extracting zip files:
 
 <p align="center">
-  <a href="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker/releases/latest" target="_blank">
+  <a href="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker/releases/latest/download/Android-Battery-Unrestricted-Checker-universal.apk" target="_blank">
     <img src="assets/images/Direct%20Link%20Frame%20Badge.svg" height="96" alt="Direct APK Download" />
   </a>
 </p>

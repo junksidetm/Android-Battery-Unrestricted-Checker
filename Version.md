@@ -423,3 +423,18 @@
   - `.github/workflows/pages.yml`: Configured `enablement: true` on `Setup Pages` step.
   - `Version.md`: Appended ledger entry.
 - **Status**: 100% (Completed & Synced)
+
+## [2026-10-09 22:05:00 IST] - Direct Download Badge Link Resolution & CI Workspace Hardening
+- **Action**: Wired direct APK download button badge in README.md to the direct universal release APK download URL. Hardened CI workflow to guarantee workspace restoration after diagnostic push.
+- **Components Modified**:
+  - `README.md`: Updated Direct Link Frame badge href to direct GitHub release asset endpoint.
+  - `.github/workflows/build.yml`: Restored git workspace commit checkout after diagnostic push.
+  - `Version.md`: Appended ledger entry.
+- **Status**: 100% (Completed)
+
+## [2026-10-09 22:15:00 IST] - Hub Ecosystem URL Migration
+- **Action**: Migrated hub navigation links from `mrdarksidetm.github.io` to `junksidetm.github.io`.
+- **Files Modified**:
+  - `docs/index.html`: Updated navbar brand, Atelier Hub navigation, and footer links.
+  - `Version.md`: Appended ledger entry.
+- **Status**: 100% (Completed)
