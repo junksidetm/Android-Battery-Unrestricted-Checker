@@ -18,7 +18,7 @@
         android:pathData="M78.0996,48.2637C79.121,48.2637 79.9492,49.0919 79.9492,50.1133V58.376C79.9492,59.3973 79.1209,60.2256 78.0996,60.2256C77.0783,60.2256 76.25,59.3973 76.25,58.376V50.1133C76.25,49.0919 77.0783,48.2637 78.0996,48.2637Z" />
     <!-- Info Badge Background -->
     <path
-        android:fillColor="#FEF9FF"
+        android:fillColor="#FFFFFF"
         android:pathData="M73,61a7,7 0 1,0 0.001,0z" />
     <!-- Info Badge Circle & Icon -->
     <path

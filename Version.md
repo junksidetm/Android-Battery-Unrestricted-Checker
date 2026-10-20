@@ -466,3 +466,17 @@
   - Copied raw SVG assets from workspace repository to `assets/images/Android-Battery.svg`.
   - Updated vector drawables (`ic_launcher_background.xml`, `ic_launcher_foreground.xml`, `ic_launcher_monochrome.xml`).
   - Bumped `versionCode` to 3 and `versionName` to `2.0.1`.
+
+
+## [2026-10-20 17:05:35 IST] - Version 2.1.0: Design Language Alignment & Pure White Icon
+- **Version**: 2.1.0 (versionCode 4)
+- **Status**: 100% (Completed)
+- **Changes & Improvements**:
+  - Icon Pure White Background: Changed adaptive icon canvas background and badge mask from #FEF9FF to pure #FFFFFF.
+  - Suffix Removal: Removed build number suffix from tags and releases, standardizing on v2.1.0.
+  - Home Screen Foreground Icon: Displayed official black foreground battery icon in CenterAlignedTopAppBar navigation slot.
+  - Design Language Synchronization: Aligned design system directly with Autostart Manager with CenterAlignedTopAppBar, simplified header explanation, and square checkbox for system apps filter in options menu.
+  - Equalized Pill Filter Bar: Integrated equal-width, equal-height pill filter buttons (All, Unre, Optim, Restr) with auto-scaled typography and count indicators.
+  - Contextual Swipe Animation: Added directional horizontal sliding animations (`AnimatedContent`) when navigating across battery filter tabs.
+  - Flat Table Row Layout: Transitioned app list from heavy nested cards to flat, high-performance table rows matching Autostart Manager with direct mode selectors and 0.5dp dividers.
+  - Empty About Page: Replaced static developer profile with clean empty About screen scaffold, ready for Figma design implementation.

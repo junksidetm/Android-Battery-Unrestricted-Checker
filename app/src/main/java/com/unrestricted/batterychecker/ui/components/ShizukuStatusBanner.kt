@@ -1,14 +1,6 @@
 package com.unrestricted.batterychecker.ui.components
 
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,33 +9,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.Download
-import androidx.compose.material.icons.rounded.Security
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.unrestricted.batterychecker.R
-import com.unrestricted.batterychecker.ui.theme.ColorUnrestricted
 
 @Composable
 fun ShizukuStatusBanner(
@@ -52,171 +32,70 @@ fun ShizukuStatusBanner(
     onRequestPermission: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val isFullyReady = isShizukuConnected && isPermissionGranted
 
-    Card(
+    val backgroundColor = if (isFullyReady) {
+        MaterialTheme.colorScheme.primaryContainer
+    } else {
+        MaterialTheme.colorScheme.errorContainer
+    }
+
+    val contentColor = if (isFullyReady) {
+        MaterialTheme.colorScheme.onPrimaryContainer
+    } else {
+        MaterialTheme.colorScheme.onErrorContainer
+    }
+
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 6.dp),
-        shape = RoundedCornerShape(28.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isFullyReady) {
-                ColorUnrestricted.copy(alpha = 0.12f)
-            } else {
-                MaterialTheme.colorScheme.surfaceContainerHigh
-            }
-        ),
-        border = null
+            .clip(RoundedCornerShape(16.dp))
+            .background(backgroundColor)
+            .padding(16.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(18.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    // Logo Box with Connection Badge
-                    Box(modifier = Modifier.size(46.dp)) {
-                        Surface(
-                            shape = RoundedCornerShape(16.dp),
-                            color = if (isFullyReady) ColorUnrestricted.copy(alpha = 0.2f) else MaterialTheme.colorScheme.surfaceContainerHighest,
-                            modifier = Modifier.size(46.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_shizuku_logo),
-                                contentDescription = "Shizuku Logo",
-                                colorFilter = ColorFilter.tint(
-                                    if (isFullyReady) ColorUnrestricted else MaterialTheme.colorScheme.primary
-                                ),
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .size(30.dp)
-                            )
-                        }
-
-                        if (isFullyReady) {
-                            Box(
-                                modifier = Modifier
-                                    .size(16.dp)
-                                    .background(MaterialTheme.colorScheme.surfaceContainerLow, CircleShape)
-                                    .padding(2.dp)
-                                    .background(ColorUnrestricted, CircleShape)
-                                    .align(Alignment.BottomEnd),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Check,
-                                    contentDescription = "Connected",
-                                    tint = Color.White,
-                                    modifier = Modifier.size(10.dp)
-                                )
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.width(14.dp))
-
-                    Column {
-                        Text(
-                            text = if (isFullyReady) {
-                                "Shizuku / Shevery Active"
-                            } else if (isShizukuConnected) {
-                                "Permission Required"
-                            } else {
-                                "Shizuku / Shevery Offline"
-                            },
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = if (isFullyReady) ColorUnrestricted else MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = if (isFullyReady) {
-                                "Tri-state mode inspection & live switching enabled"
-                            } else {
-                                "Connect Shizuku or Shevery to unlock application battery optimization data."
-                            },
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+            Icon(
+                imageVector = if (isFullyReady) Icons.Default.CheckCircle else Icons.Default.Warning,
+                contentDescription = null,
+                tint = contentColor,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = if (isFullyReady) "Shizuku Connected" else if (isShizukuConnected) "Permission Needed" else "Shizuku / Shevery Disconnected",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = contentColor
+                )
+                if (!isFullyReady) {
+                    Text(
+                        text = if (isShizukuConnected) {
+                            "Service running. Authorization required to modify battery modes"
+                        } else {
+                            "Start Shizuku or Shevery via Wireless ADB to manage battery optimization without root"
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = contentColor.copy(alpha = 0.85f)
+                    )
                 }
             }
+        }
 
-            AnimatedVisibility(
-                visible = !isFullyReady,
-                enter = fadeIn(),
-                exit = fadeOut()
+        if (isShizukuConnected && !isPermissionGranted) {
+            Spacer(modifier = Modifier.height(12.dp))
+            Button(
+                onClick = onRequestPermission,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = contentColor,
+                    contentColor = backgroundColor
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.align(Alignment.End)
             ) {
-                Column(modifier = Modifier.padding(top = 12.dp)) {
-                    if (isShizukuConnected && !isPermissionGranted) {
-                        FilledTonalButton(
-                            onClick = onRequestPermission,
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(16.dp),
-                            colors = ButtonDefaults.filledTonalButtonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            )
-                        ) {
-                            Icon(Icons.Rounded.Security, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text("Grant Permission", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold))
-                        }
-                    } else {
-                        // Action buttons for downloading Shevery or Shizuku
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            OutlinedButton(
-                                onClick = {
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/HmnDev-Tech/shevery/releases/latest"))
-                                    context.startActivity(intent)
-                                },
-                                shape = RoundedCornerShape(16.dp),
-                                modifier = Modifier.weight(1f),
-                                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 10.dp, vertical = 8.dp)
-                            ) {
-                                Icon(Icons.Rounded.Download, contentDescription = null, modifier = Modifier.size(16.dp))
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Column {
-                                    Text("Shevery", style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold))
-                                    Text("Advance Version", style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp))
-                                }
-                            }
-
-                            OutlinedButton(
-                                onClick = {
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/RikkaApps/Shizuku/releases/latest"))
-                                    context.startActivity(intent)
-                                },
-                                shape = RoundedCornerShape(16.dp),
-                                modifier = Modifier.weight(1f),
-                                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 10.dp, vertical = 8.dp)
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_shizuku_logo),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Column {
-                                    Text("Shizuku", style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold))
-                                    Text("Legendary Version", style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp))
-                                }
-                            }
-                        }
-                    }
-                }
+                Text("Grant Authorization", style = MaterialTheme.typography.labelMedium)
             }
         }
     }

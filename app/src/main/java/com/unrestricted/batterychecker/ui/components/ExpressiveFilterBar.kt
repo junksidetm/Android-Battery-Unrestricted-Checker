@@ -1,31 +1,25 @@
 package com.unrestricted.batterychecker.ui.components
 
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Apps
-import androidx.compose.material.icons.rounded.BatteryAlert
-import androidx.compose.material.icons.rounded.BatterySaver
-import androidx.compose.material.icons.rounded.Bolt
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,70 +37,100 @@ fun ExpressiveFilterBar(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        FilterMode.values().forEach { filter ->
-            val isSelected = selectedFilter == filter
-            val (icon, activeColor, count) = when (filter) {
-                FilterMode.ALL -> Triple(Icons.Rounded.Apps, MaterialTheme.colorScheme.primary, stats.totalApps)
-                FilterMode.UNRESTRICTED -> Triple(Icons.Rounded.Bolt, ColorUnrestricted, stats.unrestrictedCount)
-                FilterMode.OPTIMIZED -> Triple(Icons.Rounded.BatterySaver, ColorOptimized, stats.optimizedCount)
-                FilterMode.RESTRICTED -> Triple(Icons.Rounded.BatteryAlert, ColorRestricted, stats.restrictedCount)
-            }
+        PillItem(
+            title = "All",
+            count = stats.totalApps,
+            isSelected = selectedFilter == FilterMode.ALL,
+            activeColor = MaterialTheme.colorScheme.primary,
+            onClick = { onFilterSelected(FilterMode.ALL) },
+            modifier = Modifier.weight(1f)
+        )
+        PillItem(
+            title = "Unre",
+            count = stats.unrestrictedCount,
+            isSelected = selectedFilter == FilterMode.UNRESTRICTED,
+            activeColor = ColorUnrestricted,
+            onClick = { onFilterSelected(FilterMode.UNRESTRICTED) },
+            modifier = Modifier.weight(1f)
+        )
+        PillItem(
+            title = "Optim",
+            count = stats.optimizedCount,
+            isSelected = selectedFilter == FilterMode.OPTIMIZED,
+            activeColor = ColorOptimized,
+            onClick = { onFilterSelected(FilterMode.OPTIMIZED) },
+            modifier = Modifier.weight(1f)
+        )
+        PillItem(
+            title = "Restr",
+            count = stats.restrictedCount,
+            isSelected = selectedFilter == FilterMode.RESTRICTED,
+            activeColor = ColorRestricted,
+            onClick = { onFilterSelected(FilterMode.RESTRICTED) },
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
 
-            FilterChip(
-                selected = isSelected,
-                onClick = { onFilterSelected(filter) },
-                shape = CircleShape,
-                border = null,
-                label = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = filter.label,
-                            style = MaterialTheme.typography.labelMedium.copy(
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
-                            )
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Surface(
-                            shape = CircleShape,
-                            color = if (isSelected) {
-                                activeColor.copy(alpha = 0.25f)
-                            } else {
-                                MaterialTheme.colorScheme.surfaceContainerHighest
-                            }
-                        ) {
-                            Text(
-                                text = "$count",
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 10.sp
-                                ),
-                                color = if (isSelected) activeColor else MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                            )
-                        }
-                    }
-                },
-                leadingIcon = {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        tint = if (isSelected) activeColor else MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(16.dp)
-                    )
-                },
-                colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = activeColor.copy(alpha = 0.16f),
-                    selectedLabelColor = activeColor,
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerLow
-                )
+@Composable
+private fun PillItem(
+    title: String,
+    count: Int,
+    isSelected: Boolean,
+    activeColor: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val backgroundColor by animateColorAsState(
+        targetValue = if (isSelected) {
+            activeColor
+        } else {
+            MaterialTheme.colorScheme.surfaceContainerHigh
+        },
+        label = "pill_bg"
+    )
+
+    val contentColor by animateColorAsState(
+        targetValue = if (isSelected) {
+            Color.White
+        } else {
+            MaterialTheme.colorScheme.onSurfaceVariant
+        },
+        label = "pill_fg"
+    )
+
+    Box(
+        modifier = modifier
+            .height(40.dp)
+            .clip(CircleShape)
+            .background(backgroundColor)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 4.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = title,
+                fontSize = 11.sp,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                color = contentColor,
+                maxLines = 1,
+                softWrap = false
+            )
+            Spacer(modifier = Modifier.width(2.dp))
+            Text(
+                text = "($count)",
+                fontSize = 10.sp,
+                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                color = contentColor.copy(alpha = if (isSelected) 0.95f else 0.8f),
+                maxLines = 1,
+                softWrap = false
             )
         }
     }

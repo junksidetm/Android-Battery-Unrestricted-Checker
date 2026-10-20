@@ -5,6 +5,7 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,28 +17,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.BatteryAlert
-import androidx.compose.material.icons.rounded.BatterySaver
-import androidx.compose.material.icons.rounded.Bolt
-import androidx.compose.material.icons.rounded.Help
 import androidx.compose.material.icons.rounded.OpenInNew
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -69,85 +61,88 @@ fun AppBatteryCard(
         label = "stateColor"
     )
 
-    val stateIcon: ImageVector = when (app.state) {
-        BatteryOptimizationState.UNRESTRICTED -> Icons.Rounded.Bolt
-        BatteryOptimizationState.OPTIMIZED -> Icons.Rounded.BatterySaver
-        BatteryOptimizationState.RESTRICTED -> Icons.Rounded.BatteryAlert
-        BatteryOptimizationState.UNKNOWN -> Icons.Rounded.Help
-    }
-
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 5.dp),
-        shape = RoundedCornerShape(24.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
-        ),
-        border = null
-    ) {
-        Column(
+    Column(modifier = modifier.fillMaxWidth()) {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // Top Row: App Icon, Names & Settings Shortcut
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
+            // App icon
+            AppIcon(
+                packageName = app.packageName,
+                modifier = Modifier.size(44.dp)
+            )
+
+            Spacer(modifier = Modifier.width(14.dp))
+
+            // App Name and Status
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.Center
             ) {
+                Text(
+                    text = app.appName,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
-                    // Squircle Frame for App Icon
-                    Box(modifier = Modifier.size(48.dp)) {
-                        Surface(
-                            shape = RoundedCornerShape(16.dp),
-                            color = MaterialTheme.colorScheme.surfaceContainerHighest,
-                            modifier = Modifier.size(48.dp)
-                        ) {
-                            AppIcon(
-                                packageName = app.packageName,
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .size(40.dp)
-                            )
-                        }
-
-                        // Status Dot on corner
-                        Box(
-                            modifier = Modifier
-                                .size(12.dp)
-                                .background(MaterialTheme.colorScheme.surfaceContainerLow, CircleShape)
-                                .padding(2.dp)
-                                .background(stateColor, CircleShape)
-                                .align(Alignment.BottomEnd)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(14.dp))
-
-                    Column {
-                        Text(
-                            text = app.appName,
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Text(
-                            text = app.packageName,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                    Text(
+                        text = app.state.displayName,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = stateColor,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "•",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.outline
+                    )
+                    Text(
+                        text = app.packageName,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
                 }
+            }
 
-                // Open System App Details
+            Spacer(modifier = Modifier.width(8.dp))
+
+            // Mode Switching Segmented Pills
+            if (shizukuReady) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    MiniStatePill(
+                        label = "Unrest",
+                        isSelected = app.state == BatteryOptimizationState.UNRESTRICTED,
+                        activeColor = ColorUnrestricted,
+                        onClick = { onStateChange(BatteryOptimizationState.UNRESTRICTED) }
+                    )
+                    MiniStatePill(
+                        label = "Optim",
+                        isSelected = app.state == BatteryOptimizationState.OPTIMIZED,
+                        activeColor = ColorOptimized,
+                        onClick = { onStateChange(BatteryOptimizationState.OPTIMIZED) }
+                    )
+                    MiniStatePill(
+                        label = "Restr",
+                        isSelected = app.state == BatteryOptimizationState.RESTRICTED,
+                        activeColor = ColorRestricted,
+                        onClick = { onStateChange(BatteryOptimizationState.RESTRICTED) }
+                    )
+                }
+            } else {
                 IconButton(
                     onClick = {
                         try {
@@ -170,121 +165,43 @@ fun AppBatteryCard(
                     )
                 }
             }
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            // Middle Row: Expressive Pill Badge & System App indicator
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = stateColor.copy(alpha = 0.14f)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-                    ) {
-                        Icon(
-                            imageVector = stateIcon,
-                            contentDescription = null,
-                            tint = stateColor,
-                            modifier = Modifier.size(14.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = app.state.displayName,
-                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                            color = stateColor
-                        )
-                    }
-                }
-
-                if (app.isSystemApp) {
-                    Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = MaterialTheme.colorScheme.surfaceContainerHighest
-                    ) {
-                        Text(
-                            text = "System App",
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 10.sp
-                            ),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
-                        )
-                    }
-                }
-            }
-
-            // Bottom Row: Interactive Segmented Pill Switcher (when Shizuku/Shevery is active)
-            if (shizukuReady) {
-                Spacer(modifier = Modifier.height(12.dp))
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        StatePill(
-                            text = "Unrestrict",
-                            isSelected = app.state == BatteryOptimizationState.UNRESTRICTED,
-                            activeColor = ColorUnrestricted,
-                            onClick = { onStateChange(BatteryOptimizationState.UNRESTRICTED) },
-                            modifier = Modifier.weight(1f)
-                        )
-                        StatePill(
-                            text = "Optimize",
-                            isSelected = app.state == BatteryOptimizationState.OPTIMIZED,
-                            activeColor = ColorOptimized,
-                            onClick = { onStateChange(BatteryOptimizationState.OPTIMIZED) },
-                            modifier = Modifier.weight(1f)
-                        )
-                        StatePill(
-                            text = "Restrict",
-                            isSelected = app.state == BatteryOptimizationState.RESTRICTED,
-                            activeColor = ColorRestricted,
-                            onClick = { onStateChange(BatteryOptimizationState.RESTRICTED) },
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
-                }
-            }
         }
+
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.5f),
+            thickness = 0.5.dp,
+            modifier = Modifier.padding(start = 74.dp)
+        )
     }
 }
 
 @Composable
-private fun StatePill(
-    text: String,
+private fun MiniStatePill(
+    label: String,
     isSelected: Boolean,
     activeColor: Color,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
-    FilledTonalButton(
-        onClick = onClick,
-        shape = RoundedCornerShape(12.dp),
-        modifier = modifier.height(34.dp),
-        colors = ButtonDefaults.filledTonalButtonColors(
-            containerColor = if (isSelected) activeColor.copy(alpha = 0.22f) else Color.Transparent,
-            contentColor = if (isSelected) activeColor else MaterialTheme.colorScheme.onSurfaceVariant
-        ),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 4.dp, vertical = 2.dp)
+    val bg = if (isSelected) activeColor else MaterialTheme.colorScheme.surfaceContainerHigh
+    val fg = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
+
+    Box(
+        modifier = Modifier
+            .height(30.dp)
+            .clip(CircleShape)
+            .background(bg)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp),
+        contentAlignment = Alignment.Center
     ) {
         Text(
-            text = text,
+            text = label,
             style = MaterialTheme.typography.labelSmall.copy(
+                fontSize = 10.sp,
                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
-            )
+            ),
+            color = fg,
+            maxLines = 1
         )
     }
 }
