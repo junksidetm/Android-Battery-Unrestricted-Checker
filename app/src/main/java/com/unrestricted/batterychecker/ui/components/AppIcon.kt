@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.LruCache
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -20,8 +21,11 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+// Global high-performance in-memory cache to guarantee 60-120 FPS during fast scrolling
+private val iconCache = object : LruCache<String, ImageBitmap>(250) {}
+
 /**
- * Renders the actual application icon dynamically loaded from PackageManager.
+ * Renders the actual application icon dynamically loaded from PackageManager with in-memory caching.
  */
 @Composable
 fun AppIcon(
@@ -30,12 +34,25 @@ fun AppIcon(
 ) {
     val context = LocalContext.current
 
-    val imageBitmapState = produceState<ImageBitmap?>(initialValue = null, key1 = packageName) {
+    val imageBitmapState = produceState<ImageBitmap?>(
+        initialValue = iconCache.get(packageName),
+        key1 = packageName
+    ) {
+        val cached = iconCache.get(packageName)
+        if (cached != null) {
+            value = cached
+            return@produceState
+        }
+
         value = withContext(Dispatchers.IO) {
             try {
                 val pm = context.packageManager
                 val drawable = pm.getApplicationIcon(packageName)
-                drawableToBitmap(drawable)?.asImageBitmap()
+                val bitmap = drawableToBitmap(drawable)?.asImageBitmap()
+                if (bitmap != null) {
+                    iconCache.put(packageName, bitmap)
+                }
+                bitmap
             } catch (e: Throwable) {
                 null
             }

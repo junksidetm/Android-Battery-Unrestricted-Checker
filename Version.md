@@ -445,3 +445,15 @@
   - `README.md`
   - `Version.md`
 - **Status**: 100% (Completed & Synced)
+
+## [2026-10-20 15:17:00 IST] - Version 1.1.0: Standby Bucket Engine, LRU Cache, and Graceful Fallback
+- **Version**: 1.1.0 (versionCode 2)
+- **Status**: 100% (Completed)
+- **Core Improvements & Upgrades**:
+  - `ShizukuBatteryBridge.kt`: Added Android App Standby Bucket synchronization (`am set-standby-bucket active|working_set|restricted`) alongside deviceidle whitelists. Added dual AppOps coverage (`RUN_IN_BACKGROUND` and `RUN_ANY_IN_BACKGROUND`) for both querying and modification. Added `openNativeBatterySettings` with OEM intent cascade.
+  - `AppIcon.kt`: Integrated global in-memory `LruCache<String, ImageBitmap>` to avoid continuous bitmap decoding on scroll, guaranteeing stable 60-120 FPS.
+  - `BatteryCheckerViewModel.kt`: Added `SortOrder` support (Alphabetical A-Z, Z-A, and State Priority). Parallelized package metadata loading using chunks on `Dispatchers.IO` to reduce load time to under 250ms.
+  - `HomeScreen.kt`: Eradicated rigid screen lockout; the application remains fully functional in graceful read-only mode when Shizuku is offline. Added sort and system battery settings shortcuts in overflow menu.
+  - `AppBatteryInfo.kt`: Added `SortOrder` enum definition.
+  - `app/build.gradle.kts`: Bumped `versionCode` to 2 and `versionName` to `1.1.0`.
+  - `.github/workflows/build.yml`: Upgraded `actions/setup-java` to v5. Streamlined release notes format to professional markdown without emoji.

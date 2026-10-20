@@ -27,3 +27,9 @@ enum class FilterMode(val label: String) {
     OPTIMIZED("Optimized"),
     RESTRICTED("Restricted")
 }
+
+enum class SortOrder(val label: String) {
+    NAME_ASC("Name (A-Z)"),
+    NAME_DESC("Name (Z-A)"),
+    STATE_PRIORITY("State (Unrestricted First)")
+}
