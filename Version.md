@@ -457,3 +457,12 @@
   - `AppBatteryInfo.kt`: Added `SortOrder` enum definition.
   - `app/build.gradle.kts`: Bumped `versionCode` to 2 and `versionName` to `1.1.0`.
   - `.github/workflows/build.yml`: Upgraded `actions/setup-java` to v5. Streamlined release notes format to professional markdown without emoji.
+
+## [2026-10-20 16:25:00 IST] - Version 2.0.1: Adaptive Branding Update & Asset Migration
+- **Version**: 2.0.1 (versionCode 3)
+- **Status**: 100% (Completed)
+- **Changes & Improvements**:
+  - Official Icon Update: Replaced launcher branding with black foreground on off-white background adaptive icon adhering to 66dp safe zone standards (`Android-Battery.svg`).
+  - Copied raw SVG assets from workspace repository to `assets/images/Android-Battery.svg`.
+  - Updated vector drawables (`ic_launcher_background.xml`, `ic_launcher_foreground.xml`, `ic_launcher_monochrome.xml`).
+  - Bumped `versionCode` to 3 and `versionName` to `2.0.1`.

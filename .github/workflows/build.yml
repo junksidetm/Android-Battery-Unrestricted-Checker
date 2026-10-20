@@ -216,10 +216,10 @@ jobs:
         if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.1.0-b${{ github.run_number }}
-          name: "Battery Mode Checker v1.1.0 (Build #${{ github.run_number }})"
+          tag_name: v2.0.1-b${{ github.run_number }}
+          name: "Battery Mode Checker v2.0.1 (Build #${{ github.run_number }})"
           body: |
-            # Battery Mode Checker v1.1.0 (Build ${{ github.run_number }})
+            # Battery Mode Checker v2.0.1 (Build ${{ github.run_number }})
 
             Universal production release APK for Battery Mode Checker.
 
@@ -228,10 +228,12 @@ jobs:
             - Min SDK: 26 (Android 8.0)
             - Architecture: Native Kotlin, Jetpack Compose, Material 3 Expressive
             - Privilege Bridge: Shizuku and Shevery Binder IPC (UID 2000)
+            - Icon Design: Black foreground on white background within 66dp safe zone
 
             ## Release Highlights
-            - True Android App Standby Bucket synchronization (`am set-standby-bucket`) for Active, Working Set, and Restricted states.
-            - Dual AppOps background enforcement (`RUN_IN_BACKGROUND` and `RUN_ANY_IN_BACKGROUND`).
+            - Official new icon branding adhering to Android adaptive icon safe zone specifications.
+            - True Android App Standby Bucket synchronization (am set-standby-bucket) for Active, Working Set, and Restricted states.
+            - Dual AppOps background enforcement (RUN_IN_BACKGROUND and RUN_ANY_IN_BACKGROUND).
             - Thread-safe in-memory LRU icon caching for stable 60-120 FPS scrolling performance.
             - Parallel package metadata resolution cutting initial load times to under 250ms.
             - Graceful fallback mode: full app exploration and public whitelist inspection remain accessible when Shizuku is offline.
@@ -239,9 +241,9 @@ jobs:
             - State-priority and alphabetical sorting options.
 
             ## Direct Downloads
-            - Universal Production APK: [Android-Battery-Unrestricted-Checker-universal.apk](https://github.com/${{ github.repository }}/releases/download/v1.1.0-b${{ github.run_number }}/Android-Battery-Unrestricted-Checker-universal.apk)
-            - F-Droid Universal APK: [Android-Battery-Unrestricted-Checker-fdroid-universal.apk](https://github.com/${{ github.repository }}/releases/download/v1.1.0-b${{ github.run_number }}/Android-Battery-Unrestricted-Checker-fdroid-universal.apk)
-            - Checksums: [Android-Battery-Unrestricted-Checker-universal.apk.sha256](https://github.com/${{ github.repository }}/releases/download/v1.1.0-b${{ github.run_number }}/Android-Battery-Unrestricted-Checker-universal.apk.sha256)
+            - Universal Production APK: [Android-Battery-Unrestricted-Checker-universal.apk](https://github.com/${{ github.repository }}/releases/download/v2.0.1-b${{ github.run_number }}/Android-Battery-Unrestricted-Checker-universal.apk)
+            - F-Droid Universal APK: [Android-Battery-Unrestricted-Checker-fdroid-universal.apk](https://github.com/${{ github.repository }}/releases/download/v2.0.1-b${{ github.run_number }}/Android-Battery-Unrestricted-Checker-fdroid-universal.apk)
+            - Checksums: [Android-Battery-Unrestricted-Checker-universal.apk.sha256](https://github.com/${{ github.repository }}/releases/download/v2.0.1-b${{ github.run_number }}/Android-Battery-Unrestricted-Checker-universal.apk.sha256)
           files: |
             artifacts/Android-Battery-Unrestricted-Checker-universal.apk
             artifacts/Android-Battery-Unrestricted-Checker-universal.apk.sha256
