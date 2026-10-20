@@ -644,3 +644,13 @@
   - `app/build.gradle.kts`: Configured `versionCode = 6` and `versionName = "3.3.0"`.
   - `Version.md`: Appended tracking entry.
 - **Status**: 100% (Ready for Release Publication)
+
+
+## [2026-10-21 01:12:00 IST] - Material 3 Expressive Filter Layout Compilation Fix
+- **Action**: Added missing `androidx.compose.foundation.layout.Column` import in `ExpressiveFilterBar.kt`.
+- **Root Cause & Fix**:
+  - The vertical Column layout introduced in `PillItem` to ensure non-truncated Material 3 Expressive filter labels failed compilation with `Unresolved reference 'Column'`.
+  - Added `import androidx.compose.foundation.layout.Column` into `ExpressiveFilterBar.kt`, resolving release APK compilation.
+- **Files Modified**:
+  - `app/src/main/java/com/unrestricted/batterychecker/ui/components/ExpressiveFilterBar.kt`
+- **Status**: 100% (Fixed & Ready for CI Verification)
