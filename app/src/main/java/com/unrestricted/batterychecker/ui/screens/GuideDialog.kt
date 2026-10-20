@@ -170,6 +170,20 @@ fun GuideDialog(
                 Spacer(modifier = Modifier.height(14.dp))
 
                 Text(
+                    text = "Realme UI 6.0 & ColorOS Recents Note",
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "On Realme UI 6.0 and ColorOS 15, the OEM 'Athena' daemon kills background processes when swiped from the Recent Apps screen even in Unrestricted mode. To keep an Unrestricted app running permanently, lock it in the Recents switcher using the padlock icon.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                Text(
                     text = "Single-Purpose Philosophy",
                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.primary

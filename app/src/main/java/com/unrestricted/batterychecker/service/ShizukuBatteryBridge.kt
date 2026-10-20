@@ -108,8 +108,7 @@ object ShizukuBatteryBridge {
     }
 
     /**
-     * Queries all packages where background execution (RUN_ANY_IN_BACKGROUND) is ignored (Restricted).
-     * Excludes RUN_IN_BACKGROUND and BOOT_COMPLETED to avoid conflating boot autostart with battery restrictions.
+     * Queries all packages where background execution (RUN_ANY_IN_BACKGROUND or RUN_IN_BACKGROUND) is ignored (Restricted).
      */
     suspend fun getRestrictedPackages(): Set<String> = withContext(Dispatchers.IO) {
         val restricted = mutableSetOf<String>()
@@ -119,6 +118,11 @@ object ShizukuBatteryBridge {
             arrayOf("cmd", "appops", "query-op", "--user", "0", "RUN_ANY_IN_BACKGROUND", "ignore")
         )
         parseOpOutput(outputAny, restricted)
+
+        val outputRun = execShizukuCommand(
+            arrayOf("cmd", "appops", "query-op", "--user", "0", "RUN_IN_BACKGROUND", "ignore")
+        )
+        parseOpOutput(outputRun, restricted)
 
         restricted
     }

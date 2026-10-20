@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,15 +50,15 @@ fun ExpressiveFilterBar(
             modifier = Modifier.weight(1f)
         )
         PillItem(
-            title = "Unre",
+            title = "Unrestricted",
             count = stats.unrestrictedCount,
             isSelected = selectedFilter == FilterMode.UNRESTRICTED,
             activeColor = ColorUnrestricted,
             onClick = { onFilterSelected(FilterMode.UNRESTRICTED) },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1.15f)
         )
         PillItem(
-            title = "Optim",
+            title = "Optimise",
             count = stats.optimizedCount,
             isSelected = selectedFilter == FilterMode.OPTIMIZED,
             activeColor = ColorOptimized,
@@ -65,12 +66,12 @@ fun ExpressiveFilterBar(
             modifier = Modifier.weight(1f)
         )
         PillItem(
-            title = "Restr",
+            title = "Restricted",
             count = stats.restrictedCount,
             isSelected = selectedFilter == FilterMode.RESTRICTED,
             activeColor = ColorRestricted,
             onClick = { onFilterSelected(FilterMode.RESTRICTED) },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1.05f)
         )
     }
 }
@@ -104,30 +105,29 @@ private fun PillItem(
 
     Box(
         modifier = modifier
-            .height(40.dp)
-            .clip(CircleShape)
+            .height(44.dp)
+            .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
             .clickable(onClick = onClick)
-            .padding(horizontal = 4.dp),
+            .padding(horizontal = 2.dp, vertical = 2.dp),
         contentAlignment = Alignment.Center
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = title,
-                fontSize = 11.sp,
+                fontSize = 10.sp,
                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                 color = contentColor,
                 maxLines = 1,
                 softWrap = false
             )
-            Spacer(modifier = Modifier.width(2.dp))
             Text(
-                text = "($count)",
+                text = "$count",
                 fontSize = 10.sp,
-                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                fontWeight = if (isSelected) FontWeight.ExtraBold else FontWeight.SemiBold,
                 color = contentColor.copy(alpha = if (isSelected) 0.95f else 0.8f),
                 maxLines = 1,
                 softWrap = false
