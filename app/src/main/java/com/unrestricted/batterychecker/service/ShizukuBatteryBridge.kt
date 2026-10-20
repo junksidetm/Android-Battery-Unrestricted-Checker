@@ -89,37 +89,36 @@ object ShizukuBatteryBridge {
             val trimmed = line.trim()
             if (trimmed.contains(",")) {
                 val parts = trimmed.split(",")
-                if (parts.isNotEmpty()) {
-                    whitelisted.add(parts[0].trim())
+                for (part in parts) {
+                    val p = part.trim()
+                    if (p.contains(".") && !p.startsWith("UID") && !p.all { it.isDigit() }) {
+                        whitelisted.add(p)
+                    }
                 }
             } else if (trimmed.startsWith("system:") || trimmed.startsWith("user:")) {
                 val pkg = trimmed.substringAfter(":").trim()
-                if (pkg.isNotEmpty()) {
+                if (pkg.isNotEmpty() && pkg.contains(".")) {
                     whitelisted.add(pkg)
                 }
+            } else if (trimmed.contains(".") && !trimmed.contains(" ") && !trimmed.contains(":")) {
+                whitelisted.add(trimmed)
             }
         }
         whitelisted
     }
 
     /**
-     * Queries all packages having RUN_ANY_IN_BACKGROUND or RUN_IN_BACKGROUND ignored (Restricted).
+     * Queries all packages where background execution (RUN_ANY_IN_BACKGROUND) is ignored (Restricted).
+     * Excludes RUN_IN_BACKGROUND and BOOT_COMPLETED to avoid conflating boot autostart with battery restrictions.
      */
     suspend fun getRestrictedPackages(): Set<String> = withContext(Dispatchers.IO) {
         val restricted = mutableSetOf<String>()
         if (!hasPermission()) return@withContext restricted
 
-        // 1. Query RUN_ANY_IN_BACKGROUND
         val outputAny = execShizukuCommand(
             arrayOf("cmd", "appops", "query-op", "--user", "0", "RUN_ANY_IN_BACKGROUND", "ignore")
         )
         parseOpOutput(outputAny, restricted)
-
-        // 2. Query RUN_IN_BACKGROUND
-        val outputRun = execShizukuCommand(
-            arrayOf("cmd", "appops", "query-op", "--user", "0", "RUN_IN_BACKGROUND", "ignore")
-        )
-        parseOpOutput(outputRun, restricted)
 
         restricted
     }
@@ -143,20 +142,18 @@ object ShizukuBatteryBridge {
         isRestricted: Boolean,
         shizukuActive: Boolean
     ): BatteryOptimizationState {
-        return if (shizukuActive) {
-            when {
-                isWhitelisted -> BatteryOptimizationState.UNRESTRICTED
-                isRestricted -> BatteryOptimizationState.RESTRICTED
-                else -> BatteryOptimizationState.OPTIMIZED
-            }
-        } else {
-            // Non-Shizuku fallback: standard public API
-            if (isWhitelisted) {
-                BatteryOptimizationState.UNRESTRICTED
-            } else {
-                BatteryOptimizationState.OPTIMIZED
-            }
+        // If an app is whitelisted (exempt from battery optimizations),
+        // it is UNRESTRICTED - even if boot autostart is turned off!
+        if (isWhitelisted) {
+            return BatteryOptimizationState.UNRESTRICTED
         }
+
+        // If not whitelisted, only mark RESTRICTED if background execution is explicitly denied
+        if (shizukuActive && isRestricted) {
+            return BatteryOptimizationState.RESTRICTED
+        }
+
+        return BatteryOptimizationState.OPTIMIZED
     }
 
     /**

@@ -177,11 +177,8 @@ class BatteryCheckerViewModel(application: Application) : AndroidViewModel(appli
                             val pkg = appInfo.packageName
                             val isSystem = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
 
-                            val isWhitelisted = if (shizukuReady) {
-                                shizukuWhitelist.contains(pkg)
-                            } else {
-                                ShizukuBatteryBridge.checkPublicWhitelist(context, pkg)
-                            }
+                            val isWhitelisted = ShizukuBatteryBridge.checkPublicWhitelist(context, pkg) ||
+                                    shizukuWhitelist.contains(pkg)
 
                             val isRestricted = if (shizukuReady) {
                                 restrictedSet.contains(pkg)

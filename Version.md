@@ -480,3 +480,13 @@
   - Contextual Swipe Animation: Added directional horizontal sliding animations (`AnimatedContent`) when navigating across battery filter tabs.
   - Flat Table Row Layout: Transitioned app list from heavy nested cards to flat, high-performance table rows matching Autostart Manager with direct mode selectors and 0.5dp dividers.
   - Empty About Page: Replaced static developer profile with clean empty About screen scaffold, ready for Figma design implementation.
+
+
+## [2026-10-20 17:26:55 IST] - Version 3.2.0: Battery Mode Decoupling & Whitelist Parser Fix
+- **Version**: 3.2.0 (versionCode 5)
+- **Status**: 100% (Completed)
+- **Changes & Improvements**:
+  - Whitelist Parser Bug Fix: Corrected `getShizukuPowerWhitelist` token parsing for `dumpsys deviceidle whitelist` (properly extracting package names instead of prefix identifiers like `user` and `system`).
+  - Native PowerManager Integration: Combined `PowerManager.isIgnoringBatteryOptimizations(pkg)` with privileged dumpsys querying to guarantee that any application with Unrestricted battery permission is accurately evaluated as Unrestricted, regardless of boot autostart state.
+  - Removed Legacy AppOp Conflict: Removed `RUN_IN_BACKGROUND` and `BOOT_COMPLETED` from `getRestrictedPackages()`, querying strictly `RUN_ANY_IN_BACKGROUND`. Prevents applications with disabled reboot autostart from being falsely classified as Restricted battery mode.
+  - Evaluation State Isolation: Ensured `evaluateState` prioritizes whitelist exemption first so that apps with Unrestricted battery access remain Unrestricted even if reboot autostart is disabled.
