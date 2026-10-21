@@ -664,3 +664,10 @@
   - `app/src/main/java/com/unrestricted/batterychecker/ui/screens/HomeScreen.kt`: Integrated `isSystemInDarkTheme()` to dynamically swap between light and dark foreground assets in `CenterAlignedTopAppBar` navigation slot, enlarged icon frame to 52dp, and applied 1.3x scale to perfectly compensate for the original 66px circular safe zone margins.
   - `app/build.gradle.kts`: Bumped `versionCode = 7` and `versionName = "3.4.0"`.
 - **Status**: 100% (Completed & Verified)
+
+
+## [2026-10-21 10:35:00 IST] - Release Title Format Standardization
+- **Action**: Standardized automated GitHub Release title generation in CI/CD pipeline to strictly match the tag string (`v<version>`) rather than prefixed application titles.
+- **Components Modified**:
+  - `.github/workflows/build.yml`: Configured `name: "v${{ steps.version.outputs.version }}"` under release creation action.
+- **Status**: 100% (Completed & Verified)

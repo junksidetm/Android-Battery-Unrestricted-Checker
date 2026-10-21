@@ -223,7 +223,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.version }}
-          name: "Battery Mode Checker v${{ steps.version.outputs.version }}"
+          name: "v${{ steps.version.outputs.version }}"
           body: |
             # Battery Mode Checker v${{ steps.version.outputs.version }}
 
