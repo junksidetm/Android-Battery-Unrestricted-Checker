@@ -11,6 +11,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -50,6 +51,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -100,12 +102,17 @@ fun HomeScreen(
                     )
                 },
                 navigationIcon = {
+                    val isDark = isSystemInDarkTheme()
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(
+                            id = if (isDark) R.drawable.ic_launcher_foreground_dark
+                            else R.drawable.ic_launcher_foreground
+                        ),
                         contentDescription = "App Icon",
                         modifier = Modifier
-                            .padding(start = 12.dp)
-                            .size(36.dp)
+                            .padding(start = 8.dp)
+                            .size(52.dp)
+                            .scale(1.3f)
                     )
                 },
                 actions = {

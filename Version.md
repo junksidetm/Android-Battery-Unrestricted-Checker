@@ -654,3 +654,13 @@
 - **Files Modified**:
   - `app/src/main/java/com/unrestricted/batterychecker/ui/components/ExpressiveFilterBar.kt`
 - **Status**: 100% (Fixed & Ready for CI Verification)
+
+
+## [2026-10-21 10:10:00 IST] - Version 3.4.0: Home Screen Dark Mode Icon Color Flipping & Safe Area Scale Optimization
+- **Action**: Upgraded application release version to v3.4.0 (versionCode 7) with dynamic dark mode color flipping for the top-left brand icon and safe-area scale compensation.
+- **Components Created & Modified**:
+  - `app/src/main/res/drawable/ic_launcher_foreground_dark.xml`: Created inverted SVG vector drawable where battery glyph elements flip from black (#000000) to pure white (#FFFFFF), and info badge background flips from white (#FFFFFF) to black (#000000).
+  - `app/src/main/res/drawable-night/ic_launcher_foreground.xml`: Configured Android night qualifier resource for system-level dark mode resolution.
+  - `app/src/main/java/com/unrestricted/batterychecker/ui/screens/HomeScreen.kt`: Integrated `isSystemInDarkTheme()` to dynamically swap between light and dark foreground assets in `CenterAlignedTopAppBar` navigation slot, enlarged icon frame to 52dp, and applied 1.3x scale to perfectly compensate for the original 66px circular safe zone margins.
+  - `app/build.gradle.kts`: Bumped `versionCode = 7` and `versionName = "3.4.0"`.
+- **Status**: 100% (Completed & Verified)
