@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_unrestricted">अप्रतिबंधित</string>
+    <string name="mode_optimise">अनुकूलित</string>
+    <string name="mode_restricted">प्रतिबंधित</string>
+    <string name="filter_all">सभी</string>
+    <string name="apps_total">%1$d ऐप्स</string>
+
+    <string name="search_hint">ऐप्स खोजें</string>
+    <string name="more_options">और विकल्प</string>
+    <string name="menu_refresh">रीफ़्रेश करें</string>
+    <string name="menu_show_system">सिस्टम ऐप्स दिखाएँ</string>
+    <string name="menu_battery_settings">बैटरी सेटिंग्स</string>
+    <string name="menu_guide">गाइड</string>
+    <string name="menu_about">जानकारी</string>
+    <string name="empty_category">यहाँ कोई ऐप नहीं है</string>
+
+    <string name="shizuku_ready_title">Shizuku कनेक्ट है</string>
+    <string name="shizuku_ready_body">असली सिस्टम स्थिति दिख रही है। बदलने के लिए किसी मोड पर टैप करें।</string>
+    <string name="shizuku_permission_title">Shizuku को अनुमति चाहिए</string>
+    <string name="shizuku_permission_body">बैटरी मोड पढ़ने और बदलने की अनुमति दें।</string>
+    <string name="shizuku_offline_title">केवल-पढ़ने का मोड</string>
+    <string name="shizuku_offline_body">Shizuku नहीं चल रहा, इसलिए केवल Doze छूट दिख रही है। प्रतिबंधित ऐप्स देखने और मोड बदलने के लिए Shizuku शुरू करें।</string>
+
+    <string name="action_grant">अनुमति दें</string>
+    <string name="action_get">डाउनलोड</string>
+    <string name="action_got_it">समझ गया</string>
+    <string name="action_close">बंद करें</string>
+
+    <string name="guide_title">बैटरी मोड</string>
+    <string name="guide_body">⚡ अप्रतिबंधित — Doze और ऐप स्टैंडबाय से मुक्त। तुरंत पुश सूचनाएँ, बैकग्राउंड सिंक और डाउनलोड चलते रहते हैं। निष्क्रिय बैटरी ज़्यादा खर्च होती है।\n\n⏱️ अनुकूलित (डिफ़ॉल्ट) — Android बैटरी और ताज़गी में संतुलन रखता है। कैश ऐप्स फ़्रीज़ हो जाते हैं; सूचनाएँ Doze रखरखाव विंडो का इंतज़ार कर सकती हैं।\n\n🚫 प्रतिबंधित — कोई बैकग्राउंड काम नहीं। जॉब कभी-कभार चलते हैं, बैकग्राउंड सूचनाएँ शायद न आएँ। ब्लोटवेयर और कम इस्तेमाल होने वाले ऐप्स के लिए सबसे अच्छा।\n\nRealme UI / ColorOS: Athena प्रोसेस मैनेजर Recents से स्वाइप किए गए ऐप्स को बंद कर देता है, अप्रतिबंधित वाले भी। किसी ऐप को चालू रखने के लिए Recents खोलें, ऐप कार्ड का मेनू टैप करें और Lock (ताला) चुनें।\n\nअप्रतिबंधित का मतलब फ़ोन चालू रहते समय चलना है। इससे ऐप रीबूट के बाद अपने-आप शुरू नहीं होता — वह Autostart Manager का काम है।</string>
+    <string name="about_body">संस्करण %1$s\n\nनिर्माता: Mrdarkside (Abhijeet Yadav)\nmrdarksidetm@gmail.com\n\nएक ही काम: हर ऐप का असली बैटरी मोड दिखाना और Shizuku से उसे बदलना। कोई बैकग्राउंड सेवा नहीं, कोई एनालिटिक्स नहीं।</string>
+
+    <string name="msg_load_failed">ऐप्स लोड नहीं हो सके: %1$s</string>
+    <string name="msg_mode_refused">सिस्टम ने %1$s को %2$s में नहीं जाने दिया</string>
+    <string name="msg_switch_failed">बदलाव विफल: %1$s</string>
+    <string name="msg_no_app">इसे खोलने के लिए कोई ऐप नहीं है</string>
+</resources>

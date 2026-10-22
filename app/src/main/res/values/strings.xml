@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Battery Mode Checker</string>
+    <string name="app_name" translatable="false">Battery Mode Checker</string>
     <string name="app_title">Battery Unrestricted Checker</string>
     <string name="unrestricted">Unrestricted</string>
     <string name="optimized">Optimized</string>
@@ -11,4 +11,42 @@
     <string name="connect_shizuku">Connect Shizuku / Shevery</string>
     <string name="refresh">Refresh</string>
     <string name="system_apps">Show System Apps</string>
+
+    <string name="mode_unrestricted">Unrestricted</string>
+    <string name="mode_optimise">Optimise</string>
+    <string name="mode_restricted">Restricted</string>
+    <string name="filter_all">All</string>
+    <string name="apps_total">%1$d apps</string>
+
+    <string name="search_hint">Search apps</string>
+    <string name="more_options">More options</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_show_system">Show system apps</string>
+    <string name="menu_battery_settings">Battery settings</string>
+    <string name="menu_guide">Guide</string>
+    <string name="menu_about">About</string>
+    <string name="empty_category">No apps here</string>
+
+    <string name="shizuku_logo" translatable="false">Shizuku</string>
+    <string name="shizuku_ready_title">Shizuku connected</string>
+    <string name="shizuku_ready_body">Showing real system state. Tap a mode to switch.</string>
+    <string name="shizuku_permission_title">Shizuku needs permission</string>
+    <string name="shizuku_permission_body">Allow access to read and change battery modes.</string>
+    <string name="shizuku_offline_title">Read-only mode</string>
+    <string name="shizuku_offline_body">Shizuku isn\'t running, so only Doze exemptions are visible. Start Shizuku to see Restricted apps and switch modes.</string>
+
+    <string name="action_grant">Grant</string>
+    <string name="action_get">Get</string>
+    <string name="action_got_it">Got it</string>
+    <string name="action_close">Close</string>
+    <string name="action_github" translatable="false">GitHub</string>
+
+    <string name="guide_title">Battery modes</string>
+    <string name="guide_body">⚡ Unrestricted - exempt from Doze and app standby. Instant push, background sync and downloads keep running. Costs more idle battery.\n\n⏱️ Optimise (default) - Android balances battery and freshness. Cached apps are frozen; notifications may wait for Doze maintenance windows.\n\n🚫 Restricted - no background work. Jobs run rarely, background notifications may not arrive. Best for bloatware and rarely used apps.\n\nRealme UI / ColorOS: the Athena process manager kills apps swiped from Recents, even Unrestricted ones. To keep an app alive, open Recents, tap the app card\'s menu and choose Lock (padlock).\n\nUnrestricted is about running while the phone is on. It does not make an app start after a reboot - that is Autostart Manager\'s job.</string>
+    <string name="about_body">Version %1$s\n\nCreated by Mrdarkside (Abhijeet Yadav)\nmrdarksidetm@gmail.com\n\nOne job: show every app\'s real battery mode and switch it through Shizuku. No background services, no analytics.</string>
+
+    <string name="msg_load_failed">Couldn\'t load apps: %1$s</string>
+    <string name="msg_mode_refused">The system kept %1$s out of %2$s</string>
+    <string name="msg_switch_failed">Switch failed: %1$s</string>
+    <string name="msg_no_app">No app can open this</string>
 </resources>

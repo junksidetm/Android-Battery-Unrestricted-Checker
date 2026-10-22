@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_unrestricted">Uneingeschränkt</string>
+    <string name="mode_optimise">Optimiert</string>
+    <string name="mode_restricted">Eingeschränkt</string>
+    <string name="filter_all">Alle</string>
+    <string name="apps_total">%1$d Apps</string>
+
+    <string name="search_hint">Apps suchen</string>
+    <string name="more_options">Weitere Optionen</string>
+    <string name="menu_refresh">Aktualisieren</string>
+    <string name="menu_show_system">System-Apps anzeigen</string>
+    <string name="menu_battery_settings">Akku-Einstellungen</string>
+    <string name="menu_guide">Anleitung</string>
+    <string name="menu_about">Über</string>
+    <string name="empty_category">Keine Apps hier</string>
+
+    <string name="shizuku_ready_title">Shizuku verbunden</string>
+    <string name="shizuku_ready_body">Zeigt den echten Systemzustand. Tippe auf einen Modus, um zu wechseln.</string>
+    <string name="shizuku_permission_title">Shizuku braucht eine Berechtigung</string>
+    <string name="shizuku_permission_body">Erlaube den Zugriff, um Akkumodi zu lesen und zu ändern.</string>
+    <string name="shizuku_offline_title">Nur-Lesen-Modus</string>
+    <string name="shizuku_offline_body">Shizuku läuft nicht, daher sind nur Doze-Ausnahmen sichtbar. Starte Shizuku, um eingeschränkte Apps zu sehen und Modi zu wechseln.</string>
+
+    <string name="action_grant">Erlauben</string>
+    <string name="action_get">Holen</string>
+    <string name="action_got_it">Verstanden</string>
+    <string name="action_close">Schließen</string>
+
+    <string name="guide_title">Akkumodi</string>
+    <string name="guide_body">⚡ Uneingeschränkt — von Doze und App-Standby ausgenommen. Push-Nachrichten, Hintergrund-Sync und Downloads laufen weiter. Verbraucht mehr Akku im Ruhezustand.\n\n⏱️ Optimiert (Standard) — Android wägt Akku und Aktualität ab. Zwischengespeicherte Apps werden eingefroren; Benachrichtigungen können auf Doze-Wartungsfenster warten.\n\n🚫 Eingeschränkt — keine Hintergrundarbeit. Jobs laufen selten, Benachrichtigungen kommen evtl. nicht an. Ideal für Bloatware und selten genutzte Apps.\n\nRealme UI / ColorOS: Der Prozessmanager Athena beendet Apps, die aus „Zuletzt verwendet“ gewischt werden, auch uneingeschränkte. Um eine App am Leben zu halten, öffne „Zuletzt verwendet“, tippe auf das Menü der App-Karte und wähle Sperren (Schloss).\n\nUneingeschränkt betrifft das Laufen bei eingeschaltetem Telefon. Es lässt eine App nicht nach einem Neustart starten — das erledigt Autostart Manager.</string>
+    <string name="about_body">Version %1$s\n\nErstellt von Mrdarkside (Abhijeet Yadav)\nmrdarksidetm@gmail.com\n\nEine Aufgabe: den echten Akkumodus jeder App zeigen und ihn über Shizuku ändern. Keine Hintergrunddienste, keine Analysen.</string>
+
+    <string name="msg_load_failed">Apps konnten nicht geladen werden: %1$s</string>
+    <string name="msg_mode_refused">Das System hat %1$s nicht auf %2$s gesetzt</string>
+    <string name="msg_switch_failed">Wechsel fehlgeschlagen: %1$s</string>
+    <string name="msg_no_app">Keine App kann dies öffnen</string>
+</resources>

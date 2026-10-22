@@ -12,8 +12,8 @@ android {
         applicationId = "com.unrestricted.batterychecker"
         minSdk = 26
         targetSdk = 35
-        versionCode = 7
-        versionName = "3.4.0"
+        versionCode = 8
+        versionName = "3.5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -81,6 +81,18 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+        density {
+            enableSplit = false
+        }
+        abi {
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {
@@ -102,4 +114,7 @@ dependencies {
     // Shizuku and Shevery Binder Bridge
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
+
+    // Unit Testing
+    testImplementation(libs.junit)
 }

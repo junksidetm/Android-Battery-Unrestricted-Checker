@@ -81,30 +81,10 @@ object ShizukuBatteryBridge {
      * Fetches the complete DeviceIdle (Doze) whitelist by querying dumpsys via Shizuku.
      */
     suspend fun getShizukuPowerWhitelist(): Set<String> = withContext(Dispatchers.IO) {
-        val whitelisted = mutableSetOf<String>()
-        if (!hasPermission()) return@withContext whitelisted
+        if (!hasPermission()) return@withContext emptySet()
 
         val output = execShizukuCommand(arrayOf("dumpsys", "deviceidle", "whitelist"))
-        output.lineSequence().forEach { line ->
-            val trimmed = line.trim()
-            if (trimmed.contains(",")) {
-                val parts = trimmed.split(",")
-                for (part in parts) {
-                    val p = part.trim()
-                    if (p.contains(".") && !p.startsWith("UID") && !p.all { it.isDigit() }) {
-                        whitelisted.add(p)
-                    }
-                }
-            } else if (trimmed.startsWith("system:") || trimmed.startsWith("user:")) {
-                val pkg = trimmed.substringAfter(":").trim()
-                if (pkg.isNotEmpty() && pkg.contains(".")) {
-                    whitelisted.add(pkg)
-                }
-            } else if (trimmed.contains(".") && !trimmed.contains(" ") && !trimmed.contains(":")) {
-                whitelisted.add(trimmed)
-            }
-        }
-        whitelisted
+        BatteryStateParser.parseWhitelist(output)
     }
 
     /**
@@ -117,24 +97,14 @@ object ShizukuBatteryBridge {
         val outputAny = execShizukuCommand(
             arrayOf("cmd", "appops", "query-op", "--user", "0", "RUN_ANY_IN_BACKGROUND", "ignore")
         )
-        parseOpOutput(outputAny, restricted)
+        restricted.addAll(BatteryStateParser.parsePackageList(outputAny))
 
         val outputRun = execShizukuCommand(
             arrayOf("cmd", "appops", "query-op", "--user", "0", "RUN_IN_BACKGROUND", "ignore")
         )
-        parseOpOutput(outputRun, restricted)
+        restricted.addAll(BatteryStateParser.parsePackageList(outputRun))
 
         restricted
-    }
-
-    private fun parseOpOutput(output: String, targetSet: MutableSet<String>) {
-        output.lineSequence().forEach { line ->
-            val trimmed = line.trim()
-            val pkg = trimmed.substringBefore(":").substringBefore(" ").trim()
-            if (pkg.isNotEmpty() && pkg.contains(".")) {
-                targetSet.add(pkg)
-            }
-        }
     }
 
     /**
@@ -162,41 +132,23 @@ object ShizukuBatteryBridge {
 
     /**
      * Changes an app's optimization mode directly using Shizuku with Standby Bucket and AppOps synchronization.
+     * Uses defensive regex sanitization and transactional single-shell execution.
      */
     suspend fun setOptimizationMode(
         packageName: String,
         targetState: BatteryOptimizationState
     ): Boolean = withContext(Dispatchers.IO) {
         if (!hasPermission()) return@withContext false
+        if (!BatteryStateParser.isPackageName(packageName)) {
+            Log.e(TAG, "Rejected invalid package name: $packageName")
+            return@withContext false
+        }
+        if (targetState == BatteryOptimizationState.UNKNOWN) return@withContext false
 
         try {
-            when (targetState) {
-                BatteryOptimizationState.UNRESTRICTED -> {
-                    // Doze whitelist + AppOps Allow + Standby Bucket ACTIVE
-                    execShizukuCommand(arrayOf("dumpsys", "deviceidle", "whitelist", "+$packageName"))
-                    execShizukuCommand(arrayOf("cmd", "appops", "set", packageName, "RUN_ANY_IN_BACKGROUND", "allow"))
-                    execShizukuCommand(arrayOf("cmd", "appops", "set", packageName, "RUN_IN_BACKGROUND", "allow"))
-                    execShizukuCommand(arrayOf("am", "set-standby-bucket", packageName, "active"))
-                    true
-                }
-                BatteryOptimizationState.OPTIMIZED -> {
-                    // Remove Doze whitelist + AppOps Allow + Standby Bucket WORKING_SET
-                    execShizukuCommand(arrayOf("dumpsys", "deviceidle", "whitelist", "-$packageName"))
-                    execShizukuCommand(arrayOf("cmd", "appops", "set", packageName, "RUN_ANY_IN_BACKGROUND", "allow"))
-                    execShizukuCommand(arrayOf("cmd", "appops", "set", packageName, "RUN_IN_BACKGROUND", "allow"))
-                    execShizukuCommand(arrayOf("am", "set-standby-bucket", packageName, "working_set"))
-                    true
-                }
-                BatteryOptimizationState.RESTRICTED -> {
-                    // Remove Doze whitelist + AppOps Ignore + Standby Bucket RESTRICTED
-                    execShizukuCommand(arrayOf("dumpsys", "deviceidle", "whitelist", "-$packageName"))
-                    execShizukuCommand(arrayOf("cmd", "appops", "set", packageName, "RUN_ANY_IN_BACKGROUND", "ignore"))
-                    execShizukuCommand(arrayOf("cmd", "appops", "set", packageName, "RUN_IN_BACKGROUND", "ignore"))
-                    execShizukuCommand(arrayOf("am", "set-standby-bucket", packageName, "restricted"))
-                    true
-                }
-                BatteryOptimizationState.UNKNOWN -> false
-            }
+            val batchCommand = BatteryStateParser.switchCommand(packageName, targetState)
+            execShizukuCommand(arrayOf("sh", "-c", "exec 2>&1; $batchCommand"))
+            true
         } catch (e: Throwable) {
             Log.e(TAG, "Failed to set optimization mode for $packageName", e)
             false

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_unrestricted">Sin restricciones</string>
+    <string name="mode_optimise">Optimizada</string>
+    <string name="mode_restricted">Restringida</string>
+    <string name="filter_all">Todas</string>
+    <string name="apps_total">%1$d apps</string>
+
+    <string name="search_hint">Buscar apps</string>
+    <string name="more_options">Más opciones</string>
+    <string name="menu_refresh">Actualizar</string>
+    <string name="menu_show_system">Mostrar apps del sistema</string>
+    <string name="menu_battery_settings">Ajustes de batería</string>
+    <string name="menu_guide">Guía</string>
+    <string name="menu_about">Acerca de</string>
+    <string name="empty_category">No hay apps aquí</string>
+
+    <string name="shizuku_ready_title">Shizuku conectado</string>
+    <string name="shizuku_ready_body">Mostrando el estado real del sistema. Toca un modo para cambiarlo.</string>
+    <string name="shizuku_permission_title">Shizuku necesita permiso</string>
+    <string name="shizuku_permission_body">Permite el acceso para leer y cambiar los modos de batería.</string>
+    <string name="shizuku_offline_title">Modo de solo lectura</string>
+    <string name="shizuku_offline_body">Shizuku no se está ejecutando, así que solo se ven las exenciones de Doze. Inicia Shizuku para ver las apps restringidas y cambiar modos.</string>
+
+    <string name="action_grant">Permitir</string>
+    <string name="action_get">Obtener</string>
+    <string name="action_got_it">Entendido</string>
+    <string name="action_close">Cerrar</string>
+
+    <string name="guide_title">Modos de batería</string>
+    <string name="guide_body">⚡ Sin restricciones — exenta de Doze y del modo de espera. Las notificaciones push, la sincronización y las descargas siguen funcionando. Gasta más batería en reposo.\n\n⏱️ Optimizada (predeterminado) — Android equilibra batería y actualización. Las apps en caché se congelan; las notificaciones pueden esperar a las ventanas de mantenimiento de Doze.\n\n🚫 Restringida — sin trabajo en segundo plano. Las tareas se ejecutan rara vez y puede que no lleguen notificaciones. Ideal para bloatware y apps poco usadas.\n\nRealme UI / ColorOS: el gestor de procesos Athena cierra las apps que deslizas fuera de Recientes, incluso las sin restricciones. Para mantener una app activa, abre Recientes, toca el menú de la tarjeta y elige Bloquear (candado).\n\nSin restricciones se refiere a ejecutarse con el teléfono encendido. No hace que una app se inicie tras reiniciar — eso es tarea de Autostart Manager.</string>
+    <string name="about_body">Versión %1$s\n\nCreado por Mrdarkside (Abhijeet Yadav)\nmrdarksidetm@gmail.com\n\nUna sola tarea: mostrar el modo de batería real de cada app y cambiarlo con Shizuku. Sin servicios en segundo plano ni analíticas.</string>
+
+    <string name="msg_load_failed">No se pudieron cargar las apps: %1$s</string>
+    <string name="msg_mode_refused">El sistema mantuvo %1$s fuera de %2$s</string>
+    <string name="msg_switch_failed">Error al cambiar: %1$s</string>
+    <string name="msg_no_app">Ninguna app puede abrir esto</string>
+</resources>

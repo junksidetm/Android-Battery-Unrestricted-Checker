@@ -40,6 +40,9 @@ jobs:
       - name: Ensure Gradlew Executable
         run: chmod +x gradlew
 
+      - name: Run Unit Tests
+        run: ./gradlew testReleaseUnitTest --no-daemon
+
       - name: Static Analysis & Lint Check
         run: ./gradlew lintRelease --no-daemon
         continue-on-error: true

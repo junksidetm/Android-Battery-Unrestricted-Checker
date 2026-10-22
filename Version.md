@@ -671,3 +671,31 @@
 - **Components Modified**:
   - `.github/workflows/build.yml`: Configured `name: "v${{ steps.version.outputs.version }}"` under release creation action.
 - **Status**: 100% (Completed & Verified)
+
+
+## [2026-10-22 09:55:00 IST] - Version 3.5.0: Pure-Logic Parser, Command Injection Defense, JVM Unit Tests, Transactional Batching & Multi-Language Localization
+- **Version**: 3.5.0 (versionCode 8)
+- **Status**: 100% (Completed & Verified)
+- **Core Architecture & Security Enhancements**:
+  - `BatteryStateParser.kt`: Created decoupled, pure-Kotlin domain parser isolating whitelist parsing (`parseWhitelist`), AppOps list parsing (`parsePackageList`), and strict defensive regex sanitization (`isPackageName`) to eliminate privileged shell command injection risks.
+  - Strict Whitelist-First Precedence Enforced: Preserved our v3.2.0 decoupling architecture in `classify()` where whitelist exemption (`PowerManager.isIgnoringBatteryOptimizations` + `deviceidle whitelist`) takes precedence over AppOps, guaranteeing boot autostart toggles never cause false "Restricted" battery states.
+  - Transactional Command Batching: Upgraded `setOptimizationMode` in `ShizukuBatteryBridge.kt` to execute Doze whitelist, AppOps (`RUN_ANY_IN_BACKGROUND`, `RUN_IN_BACKGROUND`), and Standby Bucket updates in a single batched shell transaction (`BatteryStateParser.switchCommand`), dramatically reducing Binder IPC latency.
+  - `BatteryStateParserTest.kt`: Added JUnit 4 unit test suite (`app/src/test/java/com/unrestricted/batterychecker/service/BatteryStateParserTest.kt`) verifying modern comma whitelist parsing, legacy colon parsing, bare UID exclusion, regex injection rejection, whitelist priority classification, and transactional command formatting.
+  - CI/CD Test Pipeline: Integrated `Run Unit Tests` (`./gradlew testReleaseUnitTest`) into `.github/workflows/build.yml` before release APK assembly.
+  - Universal Monolithic APK Packaging: Added `bundle { language { enableSplit = false } density { enableSplit = false } abi { enableSplit = false } }` to `app/build.gradle.kts`, guaranteeing all resources are embedded in a single universal `.apk` without split-APK or `.apkm` generation.
+  - Multi-Language Localization (5 Locales): Added localized `strings.xml` for German (`values-de`), Spanish (`values-es`), French (`values-fr`), Hindi (`values-hi`), and Simplified Chinese (`values-zh-rCN`), expanding global accessibility.
+- **Files Created**:
+  - `app/src/main/java/com/unrestricted/batterychecker/service/BatteryStateParser.kt`
+  - `app/src/test/java/com/unrestricted/batterychecker/service/BatteryStateParserTest.kt`
+  - `app/src/main/res/values-de/strings.xml`
+  - `app/src/main/res/values-es/strings.xml`
+  - `app/src/main/res/values-fr/strings.xml`
+  - `app/src/main/res/values-hi/strings.xml`
+  - `app/src/main/res/values-zh-rCN/strings.xml`
+- **Files Modified**:
+  - `app/build.gradle.kts`
+  - `gradle/libs.versions.toml`
+  - `app/src/main/java/com/unrestricted/batterychecker/service/ShizukuBatteryBridge.kt`
+  - `app/src/main/res/values/strings.xml`
+  - `.github/workflows/build.yml`
+  - `Version.md`

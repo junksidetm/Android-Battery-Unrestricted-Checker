@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_unrestricted">无限制</string>
+    <string name="mode_optimise">已优化</string>
+    <string name="mode_restricted">受限</string>
+    <string name="filter_all">全部</string>
+    <string name="apps_total">%1$d 个应用</string>
+
+    <string name="search_hint">搜索应用</string>
+    <string name="more_options">更多选项</string>
+    <string name="menu_refresh">刷新</string>
+    <string name="menu_show_system">显示系统应用</string>
+    <string name="menu_battery_settings">电池设置</string>
+    <string name="menu_guide">指南</string>
+    <string name="menu_about">关于</string>
+    <string name="empty_category">这里没有应用</string>
+
+    <string name="shizuku_ready_title">Shizuku 已连接</string>
+    <string name="shizuku_ready_body">显示真实系统状态。点按模式即可切换。</string>
+    <string name="shizuku_permission_title">Shizuku 需要授权</string>
+    <string name="shizuku_permission_body">允许访问以读取和更改电池模式。</string>
+    <string name="shizuku_offline_title">只读模式</string>
+    <string name="shizuku_offline_body">Shizuku 未运行，因此只能看到 Doze 豁免。启动 Shizuku 以查看受限应用并切换模式。</string>
+
+    <string name="action_grant">授权</string>
+    <string name="action_get">获取</string>
+    <string name="action_got_it">知道了</string>
+    <string name="action_close">关闭</string>
+
+    <string name="guide_title">电池模式</string>
+    <string name="guide_body">⚡ 无限制 — 不受 Doze 和应用待机限制。即时推送、后台同步和下载持续运行。待机耗电更多。\n\n⏱️ 已优化（默认）— Android 在续航与及时性之间平衡。缓存的应用会被冻结；通知可能要等 Doze 维护窗口。\n\n🚫 受限 — 不允许后台工作。任务很少运行，后台通知可能收不到。最适合预装软件和很少使用的应用。\n\nRealme UI / ColorOS：Athena 进程管理器会结束从最近任务中划掉的应用，即使是无限制的应用。要让应用保持运行，请打开最近任务，点按应用卡片的菜单并选择锁定（挂锁）。\n\n无限制只关乎手机开机时的运行，并不会让应用在重启后自动启动 — 那是 Autostart Manager 的工作。</string>
+    <string name="about_body">版本 %1$s\n\n作者：Mrdarkside (Abhijeet Yadav)\nmrdarksidetm@gmail.com\n\n只做一件事：显示每个应用的真实电池模式，并通过 Shizuku 切换。无后台服务，无统计分析。</string>
+
+    <string name="msg_load_failed">无法加载应用：%1$s</string>
+    <string name="msg_mode_refused">系统未允许将 %1$s 设为%2$s</string>
+    <string name="msg_switch_failed">切换失败：%1$s</string>
+    <string name="msg_no_app">没有应用可以打开此内容</string>
+</resources>
