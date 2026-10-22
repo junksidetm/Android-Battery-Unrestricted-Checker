@@ -100,5 +100,9 @@ class BatteryStateParserTest {
             "dumpsys deviceidle whitelist -com.test.app; cmd appops set com.test.app RUN_ANY_IN_BACKGROUND ignore; cmd appops set com.test.app RUN_IN_BACKGROUND ignore; am set-standby-bucket com.test.app restricted",
             restrictedCmd
         )
+
+        assertThrows(IllegalStateException::class.java) {
+            BatteryStateParser.switchCommand("com.test.app", BatteryOptimizationState.UNKNOWN)
+        }
     }
 }

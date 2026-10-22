@@ -52,6 +52,7 @@ object BatteryStateParser {
             BatteryOptimizationState.UNRESTRICTED -> Triple("+", "allow", "active")
             BatteryOptimizationState.OPTIMIZED -> Triple("-", "allow", "working_set")
             BatteryOptimizationState.RESTRICTED -> Triple("-", "ignore", "restricted")
+            BatteryOptimizationState.UNKNOWN -> error("Cannot switch to UNKNOWN state")
         }
         return listOf(
             "dumpsys deviceidle whitelist $whitelistOp$pkg",

@@ -699,3 +699,10 @@
   - `app/src/main/res/values/strings.xml`
   - `.github/workflows/build.yml`
   - `Version.md`
+
+
+## [2026-10-22 10:01:00 IST] - Compilation Fix: Exhaustive When Expression in BatteryStateParser
+- **Status**: 100% (Fixed & Verified)
+- **Fix Details**:
+  - `BatteryStateParser.kt`: Added explicit handling for `BatteryOptimizationState.UNKNOWN` branch in `switchCommand()` to satisfy Kotlin exhaustive pattern matching requirements.
+  - `BatteryStateParserTest.kt`: Added unit test assertion verifying `IllegalStateException` on `UNKNOWN` optimization state transition attempt.
