@@ -706,3 +706,22 @@
 - **Fix Details**:
   - `BatteryStateParser.kt`: Added explicit handling for `BatteryOptimizationState.UNKNOWN` branch in `switchCommand()` to satisfy Kotlin exhaustive pattern matching requirements.
   - `BatteryStateParserTest.kt`: Added unit test assertion verifying `IllegalStateException` on `UNKNOWN` optimization state transition attempt.
+
+
+## [2026-10-25 16:46:30 IST] - Version 3.5.1: Launcher App Icon Dark Mode Inversion Fix
+- **Version**: 3.5.1 (versionCode 9)
+- **Status**: 100% (Completed & Verified)
+- **Root Cause Analysis**:
+  - In v3.4.0, `res/drawable-night/ic_launcher_foreground.xml` was introduced under the Android night configuration qualifier alongside `ic_launcher_foreground_dark.xml`.
+  - Android's adaptive launcher icon definition in `res/mipmap-anydpi-v26/ic_launcher.xml` references `@drawable/ic_launcher_foreground`.
+  - When the device switched to dark mode, the resource system automatically resolved `@drawable/ic_launcher_foreground` to `drawable-night/ic_launcher_foreground.xml` across the entire application lifecycle, causing the system launcher icon on the phone's home screen/app drawer to invert its foreground.
+  - The in-app home screen top-left navigation icon in `HomeScreen.kt` already explicitly swaps between `R.drawable.ic_launcher_foreground_dark` and `R.drawable.ic_launcher_foreground` using `isSystemInDarkTheme()`.
+- **Remediation**:
+  - Removed `app/src/main/res/drawable-night/ic_launcher_foreground.xml`.
+  - The adaptive launcher icon now consistently and permanently renders the standard black foreground on white background across all system display modes.
+  - The in-app top-left navigation icon in `CenterAlignedTopAppBar` continues to dynamically invert via `HomeScreen.kt` and `ic_launcher_foreground_dark.xml` exclusively as requested.
+- **Files Modified**:
+  - `app/build.gradle.kts`: Bumped `versionCode = 9` and `versionName = "3.5.1"`.
+  - `Version.md`: Appended tracking entry.
+- **Files Removed**:
+  - `app/src/main/res/drawable-night/ic_launcher_foreground.xml`
