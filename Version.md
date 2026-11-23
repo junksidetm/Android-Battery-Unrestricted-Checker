@@ -769,3 +769,25 @@
   - `app/src/main/res/drawable-night/ic_launcher_foreground.xml`: Self-contained Dark Mode VectorDrawable with integrated black background.
   - `app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml` & `ic_launcher_round.xml`: Configured with transparent background to rely 100% on the self-contained icon vectors.
 - **Status**: 100% (Completed & Verified)
+
+
+## [2026-11-23 18:45:00 IST] - Version 3.6.0: Universal Material 3 Expressive About Screen & Official Bun Shape Integration
+- **Version**: 3.6.0 (versionCode 10)
+- **Status**: 100% (Completed & Verified)
+- **Architecture**:
+  - Implemented the full Universal Material 3 Expressive About Screen architecture (`AboutScreen.kt`).
+  - **Brand Logo Integrity**: Rendered the full-bleed squircle brand logo (`R.drawable.app_logo`) filling 75% of the 200dp squircle container, maintaining strict separation from the adaptive launcher app icon.
+  - **Mathematical Bun Shape Fix**: Replaced artificial canvas trigonometric loops with the official M3 Expressive Bun shape vector (`shape_bun.xml`, 135dp) and 9-side cookie vector (`shape_9_side_cookie.xml`, 145dp) from the Expressive Shapes catalog.
+  - **Developer Profile Card**: Ingested `developer.png` avatar (Abhijeet Yadav), GitHub repository action pill, and Email action pill.
+  - **June Connected Settings**: Synthesized 28dp rounded container with adaptive corner spring morphing for Updates, Source Code, M3 Guidelines, and in-app Apache License 2.0 bottom sheet.
+- **Files Created**:
+  - `app/src/main/res/drawable/app_logo.xml`
+  - `app/src/main/res/drawable/developer.png`
+  - `app/src/main/res/drawable/ic_github.xml`
+  - `app/src/main/res/drawable/ic_email_at.xml`
+  - `app/src/main/res/drawable/shape_bun.xml`
+  - `app/src/main/res/drawable/shape_9_side_cookie.xml`
+- **Files Modified**:
+  - `app/build.gradle.kts`: Bumped `versionCode = 10` and `versionName = "3.6.0"`.
+  - `app/src/main/java/com/unrestricted/batterychecker/ui/screens/AboutScreen.kt`
+  - `Version.md`
