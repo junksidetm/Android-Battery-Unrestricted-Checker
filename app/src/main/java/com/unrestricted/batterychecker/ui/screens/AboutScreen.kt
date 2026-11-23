@@ -80,7 +80,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.unrestricted.batterychecker.BuildConfig
 import com.unrestricted.batterychecker.R
 import kotlinx.coroutines.launch
 
@@ -119,7 +118,21 @@ fun AboutScreen(
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val appVersion = BuildConfig.VERSION_NAME
+    val appVersion = remember(context) {
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                context.packageManager.getPackageInfo(
+                    context.packageName,
+                    android.content.pm.PackageManager.PackageInfoFlags.of(0)
+                ).versionName
+            } else {
+                @Suppress("DEPRECATION")
+                context.packageManager.getPackageInfo(context.packageName, 0).versionName
+            } ?: "3.6.0"
+        } catch (e: Exception) {
+            "3.6.0"
+        }
+    }
 
     var showLicenseSheet by remember { mutableStateOf(false) }
     val licenseSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
