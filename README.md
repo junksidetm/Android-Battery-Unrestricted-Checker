@@ -1,25 +1,23 @@
-# Battery Mode Checker
-
-<p align="center">
-  <img src="assets/images/ic_launcher_foreground.svg" width="96" height="96" alt="Battery Mode Checker App Icon" />
-</p>
+<div align="center">
+  <img src="assets\Android Battery - Logo.svg" width="96" height="96" alt="Battery Mode Checker App Icon" />
+  <h1>Android Battery Unrestricted Checker (ABUC)</h1>
 
 <p align="center">
   <a href="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker"><img src="https://img.shields.io/badge/GitHub-Main-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub Main" /></a>
   <a href="https://codeberg.org/mrdarksidetm/Android-Battery-Unrestricted-Checker"><img src="https://img.shields.io/badge/Codeberg-Mirror-2185d0?style=flat-square&logo=codeberg&logoColor=white" alt="Codeberg Mirror" /></a>
   <a href="https://gitlab.com/mrdarksidetm/Android-Battery-Unrestricted-Checker"><img src="https://img.shields.io/badge/GitLab-Mirror-fc6d26?style=flat-square&logo=gitlab&logoColor=white" alt="GitLab Mirror" /></a>
   <a href="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker/actions/workflows/build.yml"><img src="https://github.com/junksidetm/Android-Battery-Unrestricted-Checker/actions/workflows/build.yml/badge.svg" alt="CI Status" /></a>
-  <a href="https://m3.material.io/"><img src="https://img.shields.io/badge/Design-Material_3_Expressive-0061A4?style=flat-square" alt="Material 3 Expressive" /></a>
-  <a href="https://developer.android.com/jetpack/compose"><img src="https://img.shields.io/badge/UI-Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" /></a>
   <a href="https://github.com/RikkaApps/Shizuku"><img src="https://img.shields.io/badge/Bridge-Shizuku_%26_Shevery-7C4DFF?style=flat-square" alt="Shizuku & Shevery" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square" alt="License" /></a>
-</p>
+</div>
 
 <p align="center">
-  A focused, ultra-responsive native Android utility built with <b>Jetpack Compose</b> and <b>Material 3 Expressive</b> to audit, manage, and toggle the true background execution state of every application on your device.
+This app uses <b>Shizuku/Shevery</b> to handle one task and on task only and that is to show you the apps that have <u>Unrestricted</u> access to your battery and System can't Optimise or close them
 </p>
 
----
+## 🤖 Context
+
+There are many OEMs and their skins, even the most basic Google Pixel OS that i sconsidered the Android Vanilla doesn't let you see the apps in one place who are given the permission <b>"Let's app X run in Background"</b> or something like <b>Don't optimise</b>. Eg: Realme OS is a big example thatdoesn't let you see these app permission at all. You have to check them indivisually
 
 ## 📱 Direct Standalone Download
 
@@ -40,12 +38,6 @@ Download the pure production-signed `.apk` directly to your phone without extrac
     <img src="assets/images/github-badge.png" height="84" alt="GitHub Releases Badge" />
   </a>
 </p>
-
-> [!NOTE]
-> **Production Signing Keystore**:
-> All release builds are automatically signed with a persistent 2048-bit RSA production keystore preserved across builds in GitHub Actions CI. Verified with `apksigner` using APK Signature Schemes v1 & v2.
-
----
 
 ## ✨ Core Features
 

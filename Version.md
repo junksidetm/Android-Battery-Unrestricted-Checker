@@ -725,3 +725,47 @@
   - `Version.md`: Appended tracking entry.
 - **Files Removed**:
   - `app/src/main/res/drawable-night/ic_launcher_foreground.xml`
+
+
+## [2026-11-23 14:45:00 IST] - Dark Mode App Icon Integration (66px Safe Area)
+- **Action**: Ingested dark mode adaptive app icon with 66-pixel inner safe area preserved.
+- **App Icon vs. Logo Separation**:
+  - Clarified separation between the full-bleed squircle brand logo (`Android Battery - Logo.svg`) and the 108dp adaptive app icon (`Android-Battery.svg` and `Android-Battery - Dark.svg`).
+  - Added `assets/images/Android-Battery - Dark.svg` featuring pitch-black background with white battery cell terminal, frame, and info badge.
+  - Synchronized asset to workspace library `D:\code\assests\Images\Logos\Android-Battery - Dark.svg`.
+  - Confirmed in-app dynamic navigation icon swapping in `HomeScreen.kt` between `ic_launcher_foreground_dark` and `ic_launcher_foreground` remains strictly isolated to inside the application, while launcher app icon remains stable.
+- **Files Created / Updated**:
+  - `assets/images/Android-Battery - Dark.svg`
+  - `Version.md`
+- **Status**: 100% (Completed & Verified)
+
+
+## [2026-11-23 14:58:00 IST] - Adaptive Launcher Dark Mode Home Screen Icon Configuration (-night qualifier)
+- **Action**: Configured Android adaptive launcher icon to dynamically switch to the official 66px safe-area dark mode icon on the Android Home Screen when system Dark Mode is active.
+- **Resource Configuration**:
+  - `app/src/main/res/drawable-night/ic_launcher_background.xml`: Ingested black (#000000) canvas background under `-night` qualifier.
+  - `app/src/main/res/drawable-night/ic_launcher_foreground.xml`: Ingested white foreground vector elements with 66px safe area matching `Android-Battery - Dark.svg`.
+- **System Behavior**:
+  - Dark Mode OFF: Home screen launcher icon displays standard light background with dark foreground.
+  - Dark Mode ON: Home screen launcher icon displays pitch-black background with white foreground.
+- **Status**: 100% (Completed & Verified)
+
+
+## [2026-11-23 15:02:00 IST] - Self-Contained SVG Background Alignment (Zero Separate Background Layers)
+- **Action**: Removed separate external background drawables/color qualifiers (`ic_launcher_background.xml` and `values-night`) in strict accordance with the mandate that app icon SVGs contain their own background.
+- **Implementation**:
+  - Embedded the SVG's native background rectangle (`<rect width="108" height="108" fill="black"/>` / `M0,0h108v108h-108z`) directly into the vector icon itself.
+  - Eliminated redundant external background files, ensuring the icon asset is completely self-contained with its own integrated background color.
+- **Status**: 100% (Completed & Verified)
+
+
+## [2026-11-23 15:10:00 IST] - Complete Light & Dark 66px Safe Area App Icon Synchronization
+- **Action**: Ingested matching pairs of 66px safe-area app icons for Light Mode (default) and Dark Mode (-dark suffix).
+- **Architecture**:
+  - Eliminated external `ic_launcher_background.xml`. Both icons inherently embed their own native background rect (`#FEF9FF` for light, `black` for dark).
+  - `assets/images/Android-Battery.svg`: Ingested 108dp Light Mode icon with 66px safe area.
+  - `assets/images/Android-Battery - Dark.svg`: Ingested 108dp Dark Mode icon with 66px safe area.
+  - `app/src/main/res/drawable/ic_launcher_foreground.xml`: Self-contained Light Mode VectorDrawable with integrated #FEF9FF background.
+  - `app/src/main/res/drawable-night/ic_launcher_foreground.xml`: Self-contained Dark Mode VectorDrawable with integrated black background.
+  - `app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml` & `ic_launcher_round.xml`: Configured with transparent background to rely 100% on the self-contained icon vectors.
+- **Status**: 100% (Completed & Verified)
